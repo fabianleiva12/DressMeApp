@@ -31,6 +31,27 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void TakeHeadPhoto (View v) {
+        Intent i=new Intent(this,HeadPhotoActivity.class);
+        startActivity(i);
+    }
+
+    public void TakeTorsoPhoto (View v) {
+        Intent i=new Intent(this,TorsoPhotoActivity.class);
+        startActivity(i);
+    }
+
+    public void TakeLegsPhoto (View v) {
+        Intent i=new Intent(this,LegsPhotoActivity.class);
+        startActivity(i);
+    }
+
+    public void TakeFeetPhoto (View v) {
+        Intent i=new Intent(this,FeetPhotoActivity.class);
+        startActivity(i);
+    }
+
+
     public void finalizar(View v) {
         finish();
     }

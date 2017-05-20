@@ -4,12 +4,11 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
-import android.hardware.Camera.PictureCallback;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,13 +17,12 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.Random;
 
-
-
-public class PhotoActivity extends AppCompatActivity {
+public class FeetPhotoActivity extends AppCompatActivity {
     private ImageSurfaceView mImageSurfaceView;
     private Camera camera;
 
@@ -34,17 +32,17 @@ public class PhotoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_photo);
+        setContentView(R.layout.activity_feet_photo);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-        cameraPreviewLayout = (FrameLayout)findViewById(R.id.camera_preview);
-        capturedImageHolder = (ImageView)findViewById(R.id.captured_image);
+        cameraPreviewLayout = (FrameLayout) findViewById(R.id.camera_preview);
+        capturedImageHolder = (ImageView) findViewById(R.id.captured_image);
 
         camera = checkDeviceCamera();
-        mImageSurfaceView = new ImageSurfaceView(PhotoActivity.this, camera);
+        mImageSurfaceView = new ImageSurfaceView(FeetPhotoActivity.this, camera);
         cameraPreviewLayout.addView(mImageSurfaceView);
 
-        Button captureButton = (Button)findViewById(R.id.button);
+        Button captureButton = (Button) findViewById(R.id.button);
         captureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,7 +53,7 @@ public class PhotoActivity extends AppCompatActivity {
 
     private void saveImageToExternalStorage(Bitmap finalBitmap) {
         String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
-        File myDir = new File(root + "/DressMeApp");
+        File myDir = new File(root + "/DressMeApp/Feet");
         myDir.mkdirs();
         Random generator = new Random();
         int n = 10000;
@@ -69,12 +67,11 @@ public class PhotoActivity extends AppCompatActivity {
             finalBitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
             out.flush();
             out.close();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        MediaScannerConnection.scanFile(this, new String[] { file.toString() }, null,
+        MediaScannerConnection.scanFile(this, new String[]{file.toString()}, null,
                 new MediaScannerConnection.OnScanCompletedListener() {
                     public void onScanCompleted(String path, Uri uri) {
                         Log.i("ExternalStorage", "Scanned " + path + ":");
@@ -84,7 +81,7 @@ public class PhotoActivity extends AppCompatActivity {
 
     }
 
-    private Camera checkDeviceCamera(){
+    private Camera checkDeviceCamera() {
         Camera mCamera = null;
         try {
             mCamera = Camera.open();
@@ -94,20 +91,20 @@ public class PhotoActivity extends AppCompatActivity {
         return mCamera;
     }
 
-    PictureCallback pictureCallback = new PictureCallback() {
+    Camera.PictureCallback pictureCallback = new Camera.PictureCallback() {
         @Override
         public void onPictureTaken(byte[] data, Camera camera) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
             saveImageToExternalStorage(bitmap);
-            if(bitmap==null){
-                Toast.makeText(PhotoActivity.this, "Captured image is empty", Toast.LENGTH_LONG).show();
+            if (bitmap == null) {
+                Toast.makeText(FeetPhotoActivity.this, "Captured image is empty", Toast.LENGTH_LONG).show();
                 return;
             }
-            capturedImageHolder.setImageBitmap(scaleDownBitmapImage(bitmap, 300, 200 ));
+            capturedImageHolder.setImageBitmap(scaleDownBitmapImage(bitmap, 300, 200));
         }
     };
 
-    private Bitmap scaleDownBitmapImage(Bitmap bitmap, int newWidth, int newHeight){
+    private Bitmap scaleDownBitmapImage(Bitmap bitmap, int newWidth, int newHeight) {
         Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, true);
         return resizedBitmap;
     }
@@ -128,11 +125,11 @@ public class PhotoActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         //if (id == R.id.action_settings) {
-          //  return true;
+        //  return true;
         //}
 
         return super.onOptionsItemSelected(item);
     }
-
-
 }
+
+
