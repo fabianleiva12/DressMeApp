@@ -23,8 +23,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ProfileActivity" />
-        <activity android:name=".PhotoActivity" />
-        <activity android:name=".CameraActivity" />
         <activity android:name=".PhotoHeadActivity" />
         <activity android:name=".PhotoTorsoActivity" />
         <activity android:name=".PhotoLegsActivity" />
