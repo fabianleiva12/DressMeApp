@@ -11,74 +11,64 @@
         android:id="@+id/tv1"
         android:layout_width="166dp"
         android:layout_height="37dp"
-        android:layout_marginLeft="14dp"
-        android:layout_marginTop="43dp"
-        app:layout_constraintLeft_toRightOf="@+id/profilepicture"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/profilepicture"
-        android:layout_width="107dp"
-        android:layout_height="87dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="35dp"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="45dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:layout_constraintLeft_toRightOf="@+id/profilepicture"
+        android:layout_marginLeft="18dp" />
 
     <TextView
         android:id="@+id/tv2"
         android:layout_width="168dp"
         android:layout_height="40dp"
-        android:layout_marginLeft="13dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="17dp"
         android:text="Descripción breve de los gustos del usuario."
+        app:layout_constraintTop_toBottomOf="@+id/tv1"
         app:layout_constraintLeft_toRightOf="@+id/profilepicture"
-        app:layout_constraintTop_toBottomOf="@+id/tv1" />
+        android:layout_marginLeft="18dp" />
 
     <ImageButton
         android:id="@+id/TorsoIcon"
-        android:layout_width="52dp"
-        android:layout_height="50dp"
+        android:layout_width="38dp"
+        android:layout_height="40dp"
         android:onClick="TakeTorsoPhoto"
         app:srcCompat="@mipmap/ic_launcher"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="21dp"
         app:layout_constraintTop_toBottomOf="@+id/HeadIcon"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="25dp"
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <ImageButton
         android:id="@+id/LegsIcon"
-        android:layout_width="51dp"
-        android:layout_height="49dp"
+        android:layout_width="36dp"
+        android:layout_height="37dp"
         android:onClick="TakeLegsPhoto"
         app:srcCompat="@mipmap/ic_launcher"
-        android:layout_marginTop="15dp"
-        app:layout_constraintTop_toBottomOf="@+id/TorsoIcon"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        android:layout_marginLeft="25dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="26dp"
+        app:layout_constraintTop_toBottomOf="@+id/TorsoIcon" />
 
     <ImageButton
         android:id="@+id/HeadIcon"
-        android:layout_width="53dp"
-        android:layout_height="46dp"
+        android:layout_width="36dp"
+        android:layout_height="35dp"
         android:onClick="TakeHeadPhoto"
         app:srcCompat="@mipmap/ic_launcher"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="25dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <ImageButton
         android:id="@+id/FeetIcon"
-        android:layout_width="51dp"
-        android:layout_height="48dp"
+        android:layout_width="35dp"
+        android:layout_height="36dp"
         android:onClick="TakeFeetPhoto"
         app:srcCompat="@mipmap/ic_launcher"
-        android:layout_marginTop="14dp"
-        app:layout_constraintTop_toBottomOf="@+id/LegsIcon"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        android:layout_marginLeft="25dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@+id/LegsIcon" />
 
     <TextView
         android:id="@+id/textView"
@@ -86,7 +76,7 @@
         android:layout_height="20dp"
         android:text="Información de Perfil"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="7dp"
+        android:layout_marginTop="16dp"
         android:layout_marginLeft="93dp"
         app:layout_constraintLeft_toLeftOf="parent" />
 
@@ -95,30 +85,153 @@
         android:layout_width="57dp"
         android:layout_height="24dp"
         android:text="Mi Ropa"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="33dp"
         app:layout_constraintTop_toBottomOf="@+id/tv2"
         android:layout_marginLeft="132dp"
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <ImageView
         android:id="@+id/head_one"
-        android:layout_width="52dp"
-        android:layout_height="46dp"
+        android:layout_width="61dp"
+        android:layout_height="59dp"
         app:srcCompat="@mipmap/ic_launcher"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
         app:layout_constraintLeft_toRightOf="@+id/HeadIcon"
-        android:layout_marginLeft="18dp"
+        android:layout_marginLeft="27dp" />
+
+    <ImageButton
+        android:id="@+id/profilepicture"
+        android:layout_width="117dp"
+        android:layout_height="106dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="45dp"
+        android:onClick="onImageGalleryClicked"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/head_two"
+        android:layout_width="57dp"
+        android:layout_height="59dp"
+        app:srcCompat="@mipmap/ic_launcher"
+        app:layout_constraintLeft_toRightOf="@+id/head_one"
+        android:layout_marginLeft="-1dp"
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
+    <ImageView
+        android:id="@+id/head_three"
+        android:layout_width="61dp"
+        android:layout_height="59dp"
+        app:srcCompat="@mipmap/ic_launcher"
+        app:layout_constraintLeft_toRightOf="@+id/head_two"
+        android:layout_marginLeft="-1dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <ImageView
+        android:id="@+id/torso_one"
+        android:layout_width="60dp"
+        android:layout_height="57dp"
+        app:srcCompat="@mipmap/ic_launcher"
+        app:layout_constraintLeft_toRightOf="@+id/TorsoIcon"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/head_one"
+        tools:layout_editor_absoluteX="85dp"
+        tools:layout_editor_absoluteY="267dp" />
+
+    <ImageView
+        android:id="@+id/torso_two"
+        android:layout_width="58dp"
+        android:layout_height="57dp"
+        app:srcCompat="@mipmap/ic_launcher"
+        android:layout_marginTop="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/head_two"
+        app:layout_constraintLeft_toRightOf="@+id/torso_one"
+        android:layout_marginLeft="0dp" />
+
+    <ImageView
+        android:id="@+id/torso_three"
+        android:layout_width="61dp"
+        android:layout_height="57dp"
+        app:srcCompat="@mipmap/ic_launcher"
+        app:layout_constraintLeft_toRightOf="@+id/torso_two"
+        android:layout_marginLeft="-1dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/head_three" />
+
+    <ImageView
+        android:id="@+id/leg_one"
+        android:layout_width="61dp"
+        android:layout_height="58dp"
+        app:srcCompat="@mipmap/ic_launcher"
+        android:layout_marginTop="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/torso_one"
+        app:layout_constraintLeft_toRightOf="@+id/LegsIcon"
+        android:layout_marginLeft="26dp" />
+
+    <ImageView
+        android:id="@+id/leg_two"
+        android:layout_width="58dp"
+        android:layout_height="58dp"
+        app:srcCompat="@mipmap/ic_launcher"
+        android:layout_marginTop="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/torso_two"
+        app:layout_constraintLeft_toRightOf="@+id/leg_one"
+        android:layout_marginLeft="0dp" />
+
+    <ImageView
+        android:id="@+id/leg_three"
+        android:layout_width="61dp"
+        android:layout_height="58dp"
+        app:srcCompat="@mipmap/ic_launcher"
+        android:layout_marginTop="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/torso_three"
+        app:layout_constraintLeft_toRightOf="@+id/leg_two"
+        android:layout_marginLeft="-1dp" />
+
+    <ImageView
+        android:id="@+id/feet_one"
+        android:layout_width="63dp"
+        android:layout_height="56dp"
+        app:srcCompat="@mipmap/ic_launcher"
+        android:layout_marginTop="-3dp"
+        app:layout_constraintTop_toBottomOf="@+id/leg_one"
+        app:layout_constraintLeft_toRightOf="@+id/FeetIcon"
+        android:layout_marginLeft="26dp" />
+
+    <ImageView
+        android:id="@+id/feet_two"
+        android:layout_width="58dp"
+        android:layout_height="56dp"
+        app:srcCompat="@mipmap/ic_launcher"
+        android:layout_marginTop="-3dp"
+        app:layout_constraintTop_toBottomOf="@+id/leg_two"
+        app:layout_constraintLeft_toRightOf="@+id/feet_one"
+        android:layout_marginLeft="-1dp" />
+
+    <ImageView
+        android:id="@+id/feet_three"
+        android:layout_width="60dp"
+        android:layout_height="56dp"
+        android:layout_marginLeft="-2dp"
+        android:layout_marginTop="-3dp"
+        app:layout_constraintLeft_toRightOf="@+id/feet_two"
+        app:layout_constraintTop_toBottomOf="@+id/leg_three"
+        app:srcCompat="@mipmap/ic_launcher" />
+
     <Button
-        android:id="@+id/button3"
-        android:layout_width="108dp"
-        android:layout_height="36dp"
-        android:onClick="onImageGalleryClicked"
-        android:text="Cambiar"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@+id/profilepicture" />
+        android:id="@+id/button5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="9dp"
+        android:onClick="Closet"
+        android:text="Crear Outfit"
+        app:layout_constraintLeft_toRightOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/tv2" />
 
 </android.support.constraint.ConstraintLayout>
