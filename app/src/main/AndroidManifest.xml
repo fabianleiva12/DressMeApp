@@ -30,7 +30,8 @@
         <activity android:name=".HeadPhotoActivity" />
         <activity android:name=".TorsoPhotoActivity" />
         <activity android:name=".LegsPhotoActivity" />
-        <activity android:name=".FeetPhotoActivity"></activity>
+        <activity android:name=".FeetPhotoActivity" />
+        <activity android:name=".WardrobeActivity"></activity>
     </application>
 
 </manifest>

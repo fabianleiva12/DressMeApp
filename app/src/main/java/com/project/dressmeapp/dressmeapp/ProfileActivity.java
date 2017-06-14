@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -22,7 +24,8 @@ public class ProfileActivity extends AppCompatActivity {
     public static final int IMAGE_GALLERY_REQUEST = 20;
     private TextView tv1, tv2;
     private ImageView profilePic;
-    private ImageView Head1;
+    private ImageView Head1, Head2, Head3, Torso1, Torso2, Torso3, Leg1, Leg2, Leg3, Feet1, Feet2, Feet3;
+    private int nArchivo = 0;
     //private TextView tv2;
 
     @Override
@@ -36,13 +39,168 @@ public class ProfileActivity extends AppCompatActivity {
         tv1=(TextView)findViewById(R.id.tv1);
         tv2=(TextView)findViewById(R.id.tv2);
         Head1 =(ImageView)findViewById(R.id.head_one);
+        Head2 =(ImageView)findViewById(R.id.head_two);
+        Head3 =(ImageView)findViewById(R.id.head_three);
+        Torso1 =(ImageView)findViewById(R.id.torso_one);
+        Torso2 =(ImageView)findViewById(R.id.torso_two);
+        Torso3 =(ImageView)findViewById(R.id.torso_three);
+        Leg1 =(ImageView)findViewById(R.id.leg_one);
+        Leg2 =(ImageView)findViewById(R.id.leg_two);
+        Leg3 =(ImageView)findViewById(R.id.leg_three);
+        Feet1 =(ImageView)findViewById(R.id.feet_one);
+        Feet2 =(ImageView)findViewById(R.id.feet_two);
+        Feet3 =(ImageView)findViewById(R.id.feet_three);
         profilePic =(ImageView)findViewById(R.id.profilepicture);
         tv1.setText(correo);
         //tv2.setText(pass);
+        loadHeadphotos();
+        loadTorsophotos();
+        loadLegphotos();
+        loadFeetphotos();
+
+    }
 
 
+    public void loadHeadphotos(){
+        String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/DressMeApp/Head";
+        File dir = new File(root+File.separator);
+        File[] directoryListing = dir.listFiles();
+        if (directoryListing != null) {
+            for (File child : directoryListing) {
+                // Do something with child
+
+                if (child != null){
+
+                    //Uri uri = Uri.fromFile(child);
+                    //Picasso.with(this).load(uri).into(Head1);
+                    //Head1.setImageURI(uri);
+                    nArchivo++;
+                    if (nArchivo ==1){
+                        Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
+                        Head1.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
+                    }
+                    if (nArchivo ==2){
+                        Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
+                        Head2.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
+                    }
+                    if (nArchivo ==3){
+                        Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
+                        Head3.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
+                        break;
+                    }
+
+                }
+
+            }
+        }
+        nArchivo = 0;
+    }
 
 
+    public void loadTorsophotos(){
+        String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/DressMeApp/Torso";
+        File dir = new File(root+File.separator);
+        File[] directoryListing = dir.listFiles();
+        if (directoryListing != null) {
+            for (File child : directoryListing) {
+                // Do something with child
+
+                if (child != null){
+
+                    //Uri uri = Uri.fromFile(child);
+                    //Picasso.with(this).load(uri).into(Head1);
+                    //Head1.setImageURI(uri);
+                    nArchivo++;
+                    if (nArchivo ==1){
+                        Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
+                        Torso1.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
+                    }
+                    if (nArchivo ==2){
+                        Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
+                        Torso2.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
+                    }
+                    if (nArchivo ==3){
+                        Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
+                        Torso3.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
+                        break;
+                    }
+
+                }
+
+            }
+        }
+        nArchivo = 0;
+    }
+
+    public void loadLegphotos(){
+        String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/DressMeApp/Legs";
+        File dir = new File(root+File.separator);
+        File[] directoryListing = dir.listFiles();
+        if (directoryListing != null) {
+            for (File child : directoryListing) {
+                // Do something with child
+
+                if (child != null){
+
+                    //Uri uri = Uri.fromFile(child);
+                    //Picasso.with(this).load(uri).into(Head1);
+                    //Head1.setImageURI(uri);
+                    nArchivo++;
+                    if (nArchivo ==1){
+                        Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
+                        Leg1.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
+                    }
+                    if (nArchivo ==2){
+                        Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
+                        Leg2.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
+                    }
+                    if (nArchivo ==3){
+                        Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
+                        Leg3.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
+                        break;
+                    }
+
+                }
+
+            }
+        }
+        nArchivo = 0;
+    }
+
+
+    public void loadFeetphotos(){
+        String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/DressMeApp/Feet";
+        File dir = new File(root+File.separator);
+        File[] directoryListing = dir.listFiles();
+        if (directoryListing != null) {
+            for (File child : directoryListing) {
+                // Do something with child
+
+                if (child != null){
+
+                    //Uri uri = Uri.fromFile(child);
+                    //Picasso.with(this).load(uri).into(Head1);
+                    //Head1.setImageURI(uri);
+                    nArchivo++;
+                    if (nArchivo ==1){
+                        Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
+                        Feet1.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
+                    }
+                    if (nArchivo ==2){
+                        Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
+                        Feet2.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
+                    }
+                    if (nArchivo ==3){
+                        Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
+                        Feet3.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
+                        break;
+                    }
+
+                }
+
+            }
+        }
+        nArchivo = 0;
     }
 
 
@@ -82,7 +240,8 @@ public class ProfileActivity extends AppCompatActivity {
 
 
                     // show the image to the user
-                    profilePic.setImageBitmap(image);
+                    profilePic.setImageBitmap(scaleDownBitmapImage(image, 200, 200));
+                    //profilePic.setImageBitmap(image);
 
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -92,6 +251,11 @@ public class ProfileActivity extends AppCompatActivity {
 
             }
         }
+    }
+
+    public void Closet (View v) {
+        Intent i=new Intent(this,WardrobeActivity.class);
+        startActivity(i);
     }
 
     public void TakeHeadPhoto (View v) {
@@ -112,6 +276,11 @@ public class ProfileActivity extends AppCompatActivity {
     public void TakeFeetPhoto (View v) {
         Intent i=new Intent(this,FeetPhotoActivity.class);
         startActivity(i);
+    }
+
+    private Bitmap scaleDownBitmapImage(Bitmap bitmap, int newWidth, int newHeight) {
+        Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, true);
+        return resizedBitmap;
     }
 
 

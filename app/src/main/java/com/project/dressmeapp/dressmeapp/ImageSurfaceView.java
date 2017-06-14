@@ -25,6 +25,7 @@ public class ImageSurfaceView extends SurfaceView implements SurfaceHolder.Callb
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         try {
+            //camera.setDisplayOrientation(90);
             this.camera.setPreviewDisplay(holder);
             this.camera.startPreview();
         } catch (IOException e) {
