@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,18 +38,26 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        et1=(EditText)findViewById(R.id.et1);
-        et2=(EditText)findViewById(R.id.et2);
+        et1 = (EditText) findViewById(R.id.et1);
+        et2 = (EditText) findViewById(R.id.et2);
         iconPic = (ImageView)findViewById(R.id.icon);
         Picasso.with(getApplicationContext()).load(icon).resize(150,150).into(iconPic);
+
+        final Button bLogin = (Button) findViewById(R.id.login);
+        final TextView registerLink = (TextView) findViewById(R.id.tvRegister);
     }
 
 
 
     public void Ingresar (View v) {
-        Intent i=new Intent(this,ProfileActivity.class);
+        Intent i = new Intent(this, ProfileActivity.class);
         i.putExtra("correo", et1.getText().toString());
         i.putExtra("password", et2.getText().toString());
+        startActivity(i);
+    }
+
+    public void Registrarse (View v) {
+        Intent i = new Intent(this, RegisterActivity.class);
         startActivity(i);
     }
 
