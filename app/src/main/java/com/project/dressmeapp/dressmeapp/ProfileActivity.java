@@ -14,7 +14,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,6 +35,15 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView profilePic;
     private ImageView Head1, Head2, Head3, Torso1, Torso2, Torso3, Leg1, Leg2, Leg3, Feet1, Feet2, Feet3;
     private int nArchivo = 0;
+    String url = "http://demo5993971.mockable.io/userdata";
+    String headUrl = "http://demo5993971.mockable.io/myHeadPhotos";
+    String torsoUrl = "http://demo5993971.mockable.io/myTorsoPhotos";
+    String legsUrl = "http://demo5993971.mockable.io/LegsWardrove";
+    String feetUrl = "http://demo5993971.mockable.io/myFeetPhotos";
+    // This string will hold the results
+    String data = "";
+    // Defining the Volley request queue that handles the URL request concurrently
+    RequestQueue requestQueue;
     //private TextView tv2;
 
     @Override
@@ -51,7 +69,59 @@ public class ProfileActivity extends AppCompatActivity {
         Feet2 =(ImageView)findViewById(R.id.feet_two);
         Feet3 =(ImageView)findViewById(R.id.feet_three);
         profilePic =(ImageView)findViewById(R.id.profilepicture);
-        tv1.setText(correo);
+        //tv1.setText(correo);
+        // Creates the Volley request queue
+        requestQueue = Volley.newRequestQueue(this);
+        // Creating the JsonObjectRequest class called obreq, passing required parameters:
+        //GET is used to fetch data from the server, JsonURL is the URL to be fetched from.
+        JsonObjectRequest obreq = new JsonObjectRequest(Request.Method.GET, url, null,
+                // The third parameter Listener overrides the method onResponse() and passes
+                //JSONObject as a parameter
+                new Response.Listener<JSONObject>() {
+
+                    // Takes the response from the JSON request
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            //JSONObject obj = response.getJSONObject("colorObject");
+                            // Retrieves the string labeled "colorName" and "description" from
+                            //the response JSON Object
+                            //and converts them into javascript objects
+                            String name = response.getString("name");
+                            String email = response.getString("email");
+                            String description = response.getString("description");
+                            String profilePicUrl = response.getString("picture");
+
+                            // Adds strings from object to the "data" string
+                            data += "Nombre: " + name +
+                                    "\nEmail: " + email;
+                            Picasso.with(getApplicationContext()).load(profilePicUrl).resize(100,100).into(profilePic);
+
+                            tv2.setText(description);
+                            // Adds the data string to the TextView "results"
+                            tv1.setText(data);
+                        }
+                        // Try and catch are included to handle any errors due to JSON
+                        catch (JSONException e) {
+                            // If an error occurs, this prints the error to the log
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                // The final parameter overrides the method onErrorResponse() and passes VolleyError
+                //as a parameter
+                new Response.ErrorListener() {
+                    @Override
+                    // Handles errors that occur due to Volley
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", "Error");
+                    }
+                }
+        );
+        // Adds the JSON object request "obreq" to the request queue
+        requestQueue.add(obreq);
+
+
         //tv2.setText(pass);
         loadHeadphotos();
         loadTorsophotos();
@@ -62,6 +132,42 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     public void loadHeadphotos(){
+        JsonObjectRequest obreq = new JsonObjectRequest(Request.Method.GET, headUrl, null,
+                // The third parameter Listener overrides the method onResponse() and passes
+                //JSONObject as a parameter
+                new Response.Listener<JSONObject>() {
+
+                    // Takes the response from the JSON request
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            //JSONObject obj = response.getJSONObject("colorObject");
+                            // Retrieves the string labeled "colorName" and "description" from
+                            //the response JSON Object
+                            //and converts them into javascript objects
+                            String imageUrl = response.getString("photo");
+                            Picasso.with(getApplicationContext()).load(imageUrl).resize(100,100).into(Head1);
+                        }
+                        // Try and catch are included to handle any errors due to JSON
+                        catch (JSONException e) {
+                            // If an error occurs, this prints the error to the log
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                // The final parameter overrides the method onErrorResponse() and passes VolleyError
+                //as a parameter
+                new Response.ErrorListener() {
+                    @Override
+                    // Handles errors that occur due to Volley
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", "Error");
+                    }
+                }
+        );
+        // Adds the JSON object request "obreq" to the request queue
+        requestQueue.add(obreq);
+
         String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/DressMeApp/Head";
         File dir = new File(root+File.separator);
         File[] directoryListing = dir.listFiles();
@@ -77,17 +183,19 @@ public class ProfileActivity extends AppCompatActivity {
                     nArchivo++;
                     if (nArchivo ==1){
                         Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
-                        Head1.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
-                    }
-                    if (nArchivo ==2){
-                        Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
                         Head2.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
                     }
-                    if (nArchivo ==3){
+                    if (nArchivo ==2){
                         Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
                         Head3.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
                         break;
                     }
+                    /*
+                    if (nArchivo ==3){
+                        Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
+                        Head3.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
+                        break;
+                    }*/
 
                 }
 
@@ -98,6 +206,41 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     public void loadTorsophotos(){
+        JsonObjectRequest obreq = new JsonObjectRequest(Request.Method.GET, torsoUrl, null,
+                // The third parameter Listener overrides the method onResponse() and passes
+                //JSONObject as a parameter
+                new Response.Listener<JSONObject>() {
+
+                    // Takes the response from the JSON request
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            //JSONObject obj = response.getJSONObject("colorObject");
+                            // Retrieves the string labeled "colorName" and "description" from
+                            //the response JSON Object
+                            //and converts them into javascript objects
+                            String imageUrl = response.getString("photo");
+                            Picasso.with(getApplicationContext()).load(imageUrl).resize(100,100).into(Torso1);
+                        }
+                        // Try and catch are included to handle any errors due to JSON
+                        catch (JSONException e) {
+                            // If an error occurs, this prints the error to the log
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                // The final parameter overrides the method onErrorResponse() and passes VolleyError
+                //as a parameter
+                new Response.ErrorListener() {
+                    @Override
+                    // Handles errors that occur due to Volley
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", "Error");
+                    }
+                }
+        );
+        // Adds the JSON object request "obreq" to the request queue
+        requestQueue.add(obreq);
         String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/DressMeApp/Torso";
         File dir = new File(root+File.separator);
         File[] directoryListing = dir.listFiles();
@@ -113,17 +256,19 @@ public class ProfileActivity extends AppCompatActivity {
                     nArchivo++;
                     if (nArchivo ==1){
                         Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
-                        Torso1.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
-                    }
-                    if (nArchivo ==2){
-                        Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
                         Torso2.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
                     }
-                    if (nArchivo ==3){
+                    if (nArchivo ==2){
                         Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
                         Torso3.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
                         break;
                     }
+                    /*
+                    if (nArchivo ==3){
+                        Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
+                        Torso3.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
+                        break;
+                    }*/
 
                 }
 
@@ -133,6 +278,41 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void loadLegphotos(){
+        JsonObjectRequest obreq = new JsonObjectRequest(Request.Method.GET, legsUrl, null,
+                // The third parameter Listener overrides the method onResponse() and passes
+                //JSONObject as a parameter
+                new Response.Listener<JSONObject>() {
+
+                    // Takes the response from the JSON request
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            //JSONObject obj = response.getJSONObject("colorObject");
+                            // Retrieves the string labeled "colorName" and "description" from
+                            //the response JSON Object
+                            //and converts them into javascript objects
+                            String imageUrl = response.getString("photo");
+                            Picasso.with(getApplicationContext()).load(imageUrl).resize(100,100).into(Leg1);
+                        }
+                        // Try and catch are included to handle any errors due to JSON
+                        catch (JSONException e) {
+                            // If an error occurs, this prints the error to the log
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                // The final parameter overrides the method onErrorResponse() and passes VolleyError
+                //as a parameter
+                new Response.ErrorListener() {
+                    @Override
+                    // Handles errors that occur due to Volley
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", "Error");
+                    }
+                }
+        );
+        // Adds the JSON object request "obreq" to the request queue
+        requestQueue.add(obreq);
         String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/DressMeApp/Legs";
         File dir = new File(root+File.separator);
         File[] directoryListing = dir.listFiles();
@@ -148,17 +328,19 @@ public class ProfileActivity extends AppCompatActivity {
                     nArchivo++;
                     if (nArchivo ==1){
                         Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
-                        Leg1.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
-                    }
-                    if (nArchivo ==2){
-                        Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
                         Leg2.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
                     }
-                    if (nArchivo ==3){
+                    if (nArchivo ==2){
                         Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
                         Leg3.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
                         break;
                     }
+                    /*
+                    if (nArchivo ==3){
+                        Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
+                        Leg3.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
+                        break;
+                    }*/
 
                 }
 
@@ -169,6 +351,41 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     public void loadFeetphotos(){
+        JsonObjectRequest obreq = new JsonObjectRequest(Request.Method.GET, feetUrl, null,
+                // The third parameter Listener overrides the method onResponse() and passes
+                //JSONObject as a parameter
+                new Response.Listener<JSONObject>() {
+
+                    // Takes the response from the JSON request
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            //JSONObject obj = response.getJSONObject("colorObject");
+                            // Retrieves the string labeled "colorName" and "description" from
+                            //the response JSON Object
+                            //and converts them into javascript objects
+                            String imageUrl = response.getString("photo");
+                            Picasso.with(getApplicationContext()).load(imageUrl).resize(100,100).into(Feet1);
+                        }
+                        // Try and catch are included to handle any errors due to JSON
+                        catch (JSONException e) {
+                            // If an error occurs, this prints the error to the log
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                // The final parameter overrides the method onErrorResponse() and passes VolleyError
+                //as a parameter
+                new Response.ErrorListener() {
+                    @Override
+                    // Handles errors that occur due to Volley
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("Volley", "Error");
+                    }
+                }
+        );
+        // Adds the JSON object request "obreq" to the request queue
+        requestQueue.add(obreq);
         String root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/DressMeApp/Feet";
         File dir = new File(root+File.separator);
         File[] directoryListing = dir.listFiles();
@@ -184,17 +401,19 @@ public class ProfileActivity extends AppCompatActivity {
                     nArchivo++;
                     if (nArchivo ==1){
                         Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
-                        Feet1.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
-                    }
-                    if (nArchivo ==2){
-                        Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
                         Feet2.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
                     }
-                    if (nArchivo ==3){
+                    if (nArchivo ==2){
                         Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
                         Feet3.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
                         break;
                     }
+                    /*
+                    if (nArchivo ==3){
+                        Bitmap bitmap = BitmapFactory.decodeFile(child.getPath());
+                        Feet3.setImageBitmap(scaleDownBitmapImage(bitmap, 100, 100));
+                        break;
+                    }*/
 
                 }
 
